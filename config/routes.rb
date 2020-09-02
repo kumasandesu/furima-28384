@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :users, 
 
 
@@ -15,5 +16,4 @@ Rails.application.routes.draw do
   end
 
   resources :items, only: [:index, :new, :show, :create]
-
 end
