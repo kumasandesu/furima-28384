@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
-  root 'items#index'
-  resources :items, only: [:index, :new, :showte, :crea]
 
+
+  devise_for :users, 
+
+
+  controllers: {
+    registrations: 'users/registrations',
+    sessions: "users/sessions",
+  }
+
+  root 'items#index'
+
+  devise_scope :users do
+    get '/users', to: redirect("/users/sign_up")
+  end
+
+  resources :items, only: [:index, :new, :show, :create]
 end
