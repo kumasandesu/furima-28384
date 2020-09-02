@@ -15,5 +15,4 @@ Rails.application.routes.draw do
   end
 
   resources :items, only: [:index, :new, :show, :create]
-
 end
