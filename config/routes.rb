@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  root to: 'items#index'
   devise_for :users, 
 
 
@@ -13,6 +13,5 @@ Rails.application.routes.draw do
     get '/users', to: redirect("/users/sign_up")
   end
 
-  root to: 'items#index'
-  resources :items, only: [:index, :new, :show, :create]
+  resources :items, only: [:index, :new, :show]
 end
