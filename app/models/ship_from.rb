@@ -1,4 +1,4 @@
-class Prefecture < ActiveHash::Base
+class ShipFrom < ActiveHash::Base
 
   self.data = [
     {id: 1, name: '--'},
@@ -52,4 +52,4 @@ class Prefecture < ActiveHash::Base
    ]
 end
 
-end
+

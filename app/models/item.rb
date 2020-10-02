@@ -1,12 +1,25 @@
 class Item < ApplicationRecord
-
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to_active_hash :category, :status, :shipping_fee, :prefectere, :scheduled
+  belongs_to_active_hash :category
+  belongs_to_active_hash :condition
+  belongs_to_active_hash :delivery_fee
+  belongs_to_active_hash :ship_from
+  belongs_to_active_hash :days_until_ship
 
-  #空の投稿を保存できないようにする
-  validates :item_image, :item_name, :item_info, :category, :status, :shippingfee, :prefecture, :scheduled_id, :item_price,   presence: true
-
-  #ジャンルの選択が「--」の時は保存できないようにする
-  validates :category_id, :status_id, :shippingfee_id, :prefecture_id, :scheduled_id,  numericality: { other_than: 1 }
-
+  has_one_attached :image
+  belongs_to :user
+  has_one    :purchase
+  has_one    :buy
+  # 空の投稿を出品できないようにする
+  with_options presence: true do
+    validates :name
+    validates :content
+    validates :image
+    validates :category_id, numericality: { other_than: 1, message: 'Select' }
+    validates :condition_id, numericality: { other_than: 1, message: 'Select' }
+    validates :delivery_fee_id, numericality: { other_than: 1, message: 'Select' }
+    validates :ship_from_id, numericality: { other_than: 1, message: 'Select' }
+    validates :days_until_ship_id, numericality: { other_than: 1, message: 'Select' }
+    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than: 9_999_999 }
+  end
 end
