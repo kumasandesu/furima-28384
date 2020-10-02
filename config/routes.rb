@@ -1,17 +1,7 @@
 Rails.application.routes.draw do
-
-  root to: 'items#index'
-  devise_for :users, 
-
-
-  controllers: {
-    registrations: 'users/registrations',
-    sessions: "users/sessions",
-  }
-
-  devise_scope :users do
-    get '/users', to: redirect("/users/sign_up")
+  devise_for :users
+  root "items#index"
+  resources :items do
+   resources :addresses
   end
-
-  resources :items, only: [:index, :new, :show]
 end
