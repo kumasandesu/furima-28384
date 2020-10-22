@@ -1,93 +1,69 @@
-<%# CSS・・・assets/stylesheets/shared/header.css %>
-<header class='top-page-header'>
-  <div class='search-bar-contents'>
-    <%= link_to image_tag("furima-logo-color.png", class:"furima-icon"), "/items" %>
-    <form class="search-form" action="#">
-      <input class='input-box' placeholder='キーワードから探す'>
-      <button class="search-button">
-        <%= image_tag "search.png", class:"search-icon" %>
-      </button>
-    </form>
-  </div>
-  <div class='nav'>
-    <ul class='lists-left'>
-      <li><%= link_to 'カテゴリー', "#", class: "category-list" %></li>
-      <li><%= link_to 'ブランド', "#", class: "brand-list" %></li>
-    </ul>
-    <ul class='lists-right'>
-      <%# deviseを導入できたら、ログインの有無で表示が変わるように分岐させましょう%>
-      <%# <li><%= link_to current_user.nickname, "#", class: "user-nickname" </li> %>
-      <%# <li><%= link_to 'ログアウト', "#", method: :delete, class: "logout" </li> %>
-      <li><%= link_to 'ログイン', "#", class: "login" %></li>
-      <li><%= link_to '新規登録', "#", class: "sign-up" %></li>
-      <%# //deviseを導入できたら、ログインの有無で表示が変わるように分岐させましょう%>
-    </ul>
-  </div>
-</header>
+<%= render "shared/header" %>
 
 <%# 商品の概要 %>
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-      <%= "商品名" %>
+      <%= @item.name %>
     </h2>
     <div class='item-img-content'>
-      <%= image_tag "item-sample.png" ,class:"item-box-img" %>
-      <%# 商品が売れている場合は、sold outの表示をしましょう。 %>
-      <div class='sold-out'>
+      <%= image_tag @item.image ,class:"item-box-img" %>
+      <%# 商品が売れている場合は、sould outの表示をしましょう。 %>
+      <%# <div class='sold-out'>
         <span>Sold Out!!</span>
-      </div>
-      <%# //商品が売れている場合は、sold outの表示をしましょう。 %>
+      </div> %>
+      <%# //商品が売れている場合は、sould outの表示をしましょう。 %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        ¥ 999,999,999
+      <%= @item.price%>円
       </span>
       <span class="item-postage">
         (税込) 送料込み
       </span>
     </div>
 
-    <%# ログインしているユーザと出品しているユーザが同一人物である時、商品の編集と削除を表示にしましょう%>
-
-    <%= link_to '商品の編集', "#", method: :get, class: "item-red-btn" %>
+    <%# ログインしていて、なおかつ、ログインしているユーザと出品しているユーザが同一人物でないとき表示しましょう。 %>
+    <% if user_signed_in? && current_user.id == @item.user_id %>
+    <%= link_to '商品の編集',edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
     <p class='or-text'>or</p>
-    <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
-
+    <%= link_to '削除',item_path(@item.id), method: :delete, class:'item-destroy' %>
+  
     <%# 商品が売れていない場合はこちらを表示しましょう %>
-    <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
-    <%# //商品が売れていない場合はこちらを表示しましょう %>
-
-    <%# // ログインしているユーザと出品しているユーザが同一人物である時、商品の編集と削除を表示にしましょう %>
+    <% elsif @item.buy == nil %>
+    <%= link_to '購入画面に進む',item_addresses_path(@item.id), method: :get ,class:"item-red-btn"%>
+     <%# <# //商品が売れていない場合はこちらを表示しましょう %>
+    <% end %>
+    <%# //ログインしていて、なおかつ、ログインしているユーザと出品しているユーザが同一人物でないとき表示しましょう。 %>
 
     <div class="item-explain-box">
-      <span><%= "商品説明" %></span>
+      <span><%= @item.content %></span>
     </div>
     <table class="detail-table">
       <tbody>
         <tr>
           <th class="detail-item">出品者</th>
-          <td class="detail-value"><%= "出品者名" %></td>
+          <td class="detail-value"><%= @item.user.nickname %></td>
         </tr>
         <tr>
           <th class="detail-item">カテゴリー</th>
-          <td class="detail-value"><%= "カテゴリー名" %></td>
+          <td class="detail-value"><%= @item.category.name %></td>
         </tr>
         <tr>
           <th class="detail-item">商品の状態</th>
-          <td class="detail-value"><%= "商品の状態" %></td>
+          <td class="detail-value"><%= @item.condition.name %></td> 
         </tr>
         <tr>
           <th class="detail-item">配送料の負担</th>
-          <td class="detail-value"><%= "発送料の負担" %></td>
+          <td class="detail-value"><%= @item.delivery_fee.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送元の地域</th>
-          <td class="detail-value"><%= "発送元の地域" %></td>
+          <td class="detail-value"><%= @item.ship_from.name%></td>
         </tr>
         <tr>
           <th class="detail-item">発送日の目安</th>
-          <td class="detail-value"><%= "発送日の目安" %></td>
+          <td class="detail-value"><%= @item.days_until_ship.name %></td>
         </tr>
       </tbody>
     </table>
@@ -129,48 +105,4 @@
   <a href="#" class='another-item'><%= "商品のカテゴリー名" %>をもっと見る</a>
 </div>
 
-<%# 下部広告部分 %>
-<div class='ad-footer-contents'>
-  <p class='ad-footer-explain'>
-    だれでもかんたん、人生を変えるフリマアプリ
-  </p>
-  <h2 class='ad-footer-title'>
-    今すぐ無料ダウンロード！
-  </h2>
-  <div class='store-btn'>
-    <%= link_to image_tag("https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2011-09-21&kind=iossoftware&bubble=ios_apps", class:"apple-btn"), "#" %>
-    <%= link_to image_tag("dl-android.png", class:"google-btn"), "#" %>
-  </div>
-</div>
-<%# //下部広告部分 %>
-
-<div class='footer'>
-  <div class='footer-contents'>
-    <div class='furima-details'>
-      <h2 class='footer-content-head'>FURIMAについて</h2>
-      <ul>
-        <li><%= link_to '会社概要（運営会社)', "#", class: "footer-link" %></li>
-        <li><%= link_to 'プライバシーポリシー', "#", class: "footer-link" %></li>
-        <li><%= link_to 'FURIMA利用規約', "#", class: "footer-link" %></li>
-        <li><%= link_to 'ポイントに関する特約', "#", class: "footer-link" %></li>
-      </ul>
-    </div>
-    <div class='furima-details'>
-      <h2 class='footer-content-head'>FURIMAを見る</h2>
-      <ul>
-        <li><%= link_to 'カテゴリー一覧', "#", class: "footer-link" %></li>
-        <li><%= link_to 'ブランド一覧', "#", class: "footer-link" %></li>
-      </ul>
-    </div>
-    <div class='furima-details'>
-      <h2 class='footer-content-head'>FURIMAについて</h2>
-      <ul>
-        <li><%= link_to 'FURIMAガイド', "#", class: "footer-link" %></li>
-        <li><%= link_to 'FURIMAロゴ利用ガイドライン', "#", class: "footer-link" %></li>
-        <li><%= link_to 'お知らせ', "#", class: "footer-link" %></li>
-      </ul>
-    </div>
-  </div>
-  <%= link_to image_tag("furima-logo-white.png", class:"logo-white"), "/items" %>
-  <p>© FURIMA</p>
-</div>
+<%= render "shared/footer" %>

@@ -1,10 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
-form {
-  display: block;
-}
+/* 商品の概要 */
 
 .item-show {
   background-color: #f8f8f8;
@@ -35,8 +29,15 @@ form {
   height: 50vh;
   width: 60vw;
   min-height: 500px;
-  background-color: #cdcaca;
+  background-color: rgb(205, 202, 202);
   object-fit: contain;
+}
+
+.item-price-box {
+  margin: 25px 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .item-price-box>.item-price {
@@ -47,6 +48,7 @@ form {
 .item-price-box>.item-postage {
   font-size: 16px;
 }
+
 
 .item-red-btn {
   text-align: center;
@@ -106,7 +108,7 @@ form {
   border-radius: 40px;
   width: 15vw;
   min-width: 200px;
-  color: #f94b00;
+  color: rgb(249, 75, 0);
   border: 2px solid #ffb340;
   display: flex;
   justify-content: center;
@@ -118,22 +120,11 @@ form {
   margin-right: 5px;
 }
 
-.favorite-btn {
-  border-radius: 40px;
-  width: 15vw;
-  min-width: 200px;
-  color: #f94b00;
-  border: 2px solid #ffb340;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 20px;
-}
-
 .report-btn {
   border-radius: 40px;
   width: 15vw;
   min-width: 200px;
+
   padding: 1vh 0;
   color: black;
   border: 2px solid #2d2d2d;
@@ -144,6 +135,16 @@ form {
 
 .report-flag-icon {
   margin-right: 5px;
+}
+
+
+/* /商品の概要 */
+
+.comment-box {
+  width: 40vw;
+  background-color: #fff;
+  margin: 5vh 0;
+  text-align: center;
 }
 
 .comment-text {
@@ -173,17 +174,20 @@ form {
   margin-bottom: 2vh;
 }
 
-.comment-box {
-  width: 40vw;
-  background-color: #fff;
-  margin: 5vh 0;
-  text-align: center;
+.comment-flag {
+  display: flex;
+  justify-content: center;
+}
+
+.comment-flag-icon {
+  margin: 10px 5px 0 0;
 }
 
 .links {
   display: flex;
   justify-content: space-between;
   width: 50vw;
+
 }
 
 .change-item-btn {
