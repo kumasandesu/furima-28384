@@ -1,0 +1,24 @@
+{
+  "application.js": "/packs/js/application-85d648a5e635e2f9dee6.js",
+  "application.js.map": "/packs/js/application-85d648a5e635e2f9dee6.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/js/application-85d648a5e635e2f9dee6.js"
+      ],
+      "js.map": [
+        "/packs/js/application-85d648a5e635e2f9dee6.js.map"
+      ]
+    },
+    "profit": {
+      "js": [
+        "/packs/js/profit-72eca42a79442115d68c.js"
+      ],
+      "js.map": [
+        "/packs/js/profit-72eca42a79442115d68c.js.map"
+      ]
+    }
+  },
+  "profit.js": "/packs/js/profit-72eca42a79442115d68c.js",
+  "profit.js.map": "/packs/js/profit-72eca42a79442115d68c.js.map"
+}
