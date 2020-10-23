@@ -75,3 +75,8 @@ gem 'mini_magick'
 gem 'payjp'
 
 gem 'faker'
+
+group :development do
+  gem 'sqlite3'
+end
+
