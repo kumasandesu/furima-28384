@@ -74,7 +74,5 @@ gem 'payjp'
 
 gem 'faker'
 
-group :development do
-  gem 'sqlite3'
-end
+gem "aws-sdk-s3", require: false
 
